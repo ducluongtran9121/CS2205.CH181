@@ -1,0 +1,48 @@
+global_config:
+  seed: 9999
+  device: "cpu"
+  is_mp: False
+---
+data_config:
+  data_path: "./dataset/"
+  dataset_name: "CIC-ToN-IoT"
+  num_shards: 200
+  iid: True
+---
+fed_config:
+  A: 2
+  C: 1
+  K: 10
+  R: 12
+  E: 3
+  B: 2048
+  criterion: torch.nn.CrossEntropyLoss
+  optimizer: torch.optim.SGD
+  attack_mode: 'Model-Poisoning'
+  defence_mode: 'AE'
+  scale_attack: 2  
+---
+optim_config:
+  lr: 0.001
+  momentum: 0.9
+---
+init_config:
+  init_type: "xavier"
+  init_gain: 1.0
+  gpu_ids: [0, 1, 2]
+---      
+model_config: 
+  name: LeNet
+  in_channels: 1
+  hidden_channels: 64 
+  num_hiddens: 64 
+  num_classes: 2
+---
+log_config:
+  log_path: "./log/"
+  log_name:  "FL.log"
+  tb_port: 6052
+  tb_host: "0.0.0.0"
+---
+average_config:
+  lr_server: 1.0
